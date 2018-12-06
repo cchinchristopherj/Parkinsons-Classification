@@ -1,7 +1,9 @@
-#' Project
+#' Binary Classification Model for the Parkinsons Dataset
 #'
-#' 1) 
+#' Introduction
+
 #' The dataset that will be used for this project is the Parkinsons Data Set from the UCI Machine Learning Repository. The dataset consists of predictor variables (X) which are various biomedical voice measurements taken from patient audio recordings, and annotations (Y) that identify the patients as being healthy or having Parkinson’s. The predictor variables include the average vocal fundamental frequency in the recording, and measures of variation in frequency and amplitude over the course of the recording. The data was taken from a study of 31 patients, 23 of whom had Parkinson’s, with each person contributing about 6 recordings to the dataset. Each row in the .csv file corresponds to all the predictor variables associated with one recording and one column called “status” is a binary variable indicating the patient as having Parkinson’s (1) or being healthy (0). The .csv file had no empty rows or cells, and did not require additional cleaning prior to being imported. However, two rows of comments prefaced by “#” were added above the data to clarify the contents of the file. 
+
 #' First load in the required libraries
 library(caret)
 library(corrplot)
@@ -20,7 +22,7 @@ summary(my.data)
 my.data$status = as.numeric(my.data$status)
 names(my.data)
 
-#' Exploration
+#' Exploratory Data Analysis
 #' The first visualization I will use to perform exploratory data analysis is a correlation matrix. Concretely "corrplot" from the corrplot package will be used to graphically depict the matrix of correlation coefficients between each combination of predictor variables. 
 corrplot(cor(my.data),method='color')
 cor(my.data)
@@ -54,7 +56,7 @@ test.set = my.data[-indices,]
 nrow(training.set)
 nrow(test.set)
 
-#' The first model I will investigate is logistic regression, as covered in the Essential R notes and created solely using functions from base R. I will create a binary classification model using only one predictor (spread1) in order to examine how useful a simpler model would be (and see if a more complex model with multiple predictors is necessary). 
+#' The first model I will investigate is logistic regression - I will create a binary classification model using only one predictor (spread1) in order to examine how useful a simpler model would be (and see if a more complex model with multiple predictors is necessary). 
 #' First I will plot "status" as a function of "spread1," using the jitter function to help visualize the points. 
 with(training.set, plot(spread1,jitter(status,amount=0.04),ylab="",yaxt="n"))
 axis(side=2, at=0:1, labels=c("0","1"))
